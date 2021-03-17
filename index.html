@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Schoolbell&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/form.css">
+  <title>Météo</title>
+</head>
+
+<body>
+  <div id="main">
+    <header>
+      <h1>Météo</h1>
+      <form action="handler.php" method="get" id="form">
+        <div class="town">
+          <input type="text" name="town" id="town" placeholder="Localité" />
+        </div>
+        <button type="submit">Rechercher</button>
+      </form>
+    </header>
+    <div class="display-section">
+      <div class="actual-weather">
+        <div id="actual-weather" class="card">
+          <img src="" alt="" id="current-icon">
+          <div class="today">Aujourd'hui</div>
+          <div id="description"><span style="color:black" ;> ~|¡-¡|~ </span></div>
+          <h2 id="temp"><span style="color:black" ;> - -</span></h2>
+          <div id="location"><span style="color:black" ;> - -</span></div>
+        </div>
+      </div>
+      <section class="card">
+        <div class="card-header">
+          <h3>Prévisions quotidiennes</h3>
+        </div>
+        <ul class="next-days"></ul><!-- Weather cards day per day -->
+      </section>
+      <section class="card next-hours">
+        <div class="card-header">
+          <h3>Prochaines heures</h3>
+        </div>
+        <ul class="next-hours"></ul>
+      </section>
+
+    </div>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+
+</html>

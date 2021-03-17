@@ -1,0 +1,40 @@
+.sunny {
+    background-image: linear-gradient(
+      to right top,
+      #ff4e5193,
+      #ff713e85,
+      #ff922b7e,
+      #ffb41d88,
+      #f9d52388
+    );
+  }
+  .cloudy {
+    background-image: linear-gradient(
+      to right top,
+      #63747c81,
+      #71858e83,
+      #7f96a080,
+      #8da8b285,
+      #9bbac57e
+    );
+  }
+  .rainy {
+    background-image: linear-gradient(
+      to right top,
+      #637c7b7c,
+      #718e8c83,
+      #7ea09e86,
+      #8db2b085,
+      #9bc5c386
+    );
+  }
+  .snow {
+    background-image: linear-gradient(
+      to right top,
+      #8c9599bc,
+      #7b7c7cbc,
+      #959595bc,
+      #959595bc,
+      #9bc5c386
+    );
+  }

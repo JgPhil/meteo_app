@@ -1,0 +1,117 @@
+#main {
+  max-width: 1000px;
+  font-weight: 400;
+  font-size: 1.3em;
+  width: auto;
+  box-sizing: border-box;
+  margin: 0 auto;
+  font-family: "Roboto", sans-serif;
+}
+
+.rainy {
+  background: center / cover url("../img/rain.jpeg");
+}
+
+.snow {
+  background: center / cover url("../img/snow.jpg");
+}
+
+.sunny {
+  background: center / cover url("../img/clear-sky.jpg");
+}
+
+.cloudy {
+  background: center / cover url("../img/cloud.jpg");
+}
+
+img {
+  height: 100px;
+}
+
+header {
+  width: 100%;
+  margin: auto;
+  display: inline-grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+h1 {
+  grid-column: 1/3;
+  text-align: center;
+  font-family: "Schoolbell", cursive;
+  font-size: 50px;
+  color: #050a30;
+}
+
+h3 {
+  margin-bottom: 0;
+}
+
+.display-section {
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 1px 9px 24px 2px rgba(138, 138, 138, 1);
+  margin: 3vh auto;
+  min-height: 12vh;
+}
+
+#actual-weather {
+  width: auto;
+  max-width: 400px;
+  height: 300px;
+  padding: 2em;
+}
+
+#actual-icon {
+  height: 82px;
+}
+
+#description {
+  font-size: 29px;
+}
+
+#temp {
+  font-size: 52px;
+}
+
+.next-days {
+  max-width: 1500px;
+  width: 100%;
+  padding: 0;
+  display: flex;
+  overflow-x: scroll;
+}
+
+.day-column {
+  flex: 1 0 100px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+  padding: 0 5px;
+  margin: 0 4px;
+}
+
+.temp-morn,
+.temp-day {
+  font-weight: 600;
+}
+
+.card-header h3 {
+  margin: 3px 0;
+  text-align: center;
+  background-color: #050a30;
+}
+
+li {
+  list-style: none;
+}
+
+.date {
+  font-size: 0.8em;
+}
