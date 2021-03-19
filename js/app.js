@@ -1,7 +1,7 @@
 const baseUrl = 'https://api.openweathermap.org/data/2.5/';
 const apiKey = '777f91b6cfc9562f9f83fc9851c0fa20';
 const main = document.getElementById('main');
-const days = ['Lundi', 'Mardi', 'Mercredi', "Jeudi", 'Vendredi', 'Samedi', 'Dimanche'];
+const days = [ 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', "Jeudi", 'Vendredi', 'Samedi'];
 let currentDate = new Date();
 
 
@@ -11,10 +11,8 @@ document.getElementById('form').addEventListener('submit', async function (event
     oneCallAPI(city);
 })
 
-
 const displaySection = document.querySelector('.display-section');
 const actualWeather = displaySection.querySelector('.actual-weather');
-const nextDays = displaySection.querySelector('.next-days');
 
 
 async function oneCallAPI(city) {
@@ -36,9 +34,9 @@ async function getData(url) {
 function drawCurrentWeather(data, city) {
     const description = data.current.weather[0].description;
     document.getElementById('description').innerHTML = description;
-    document.getElementById('temp').innerHTML = celcius(data.current.temp) + '&deg;';
+    document.getElementById('actual-temp').innerHTML = celcius(data.current.temp) + '&deg;';
     document.getElementById('location').innerHTML = city;
-    icon_url = fetchIcon(data.current.weather[0]["icon"]);;
+    icon_url = openWeatherMapIcon(data.current.weather[0]["icon"]);;
     document.getElementById('current-icon').setAttribute('src', icon_url);
     changeWeatherClass(document.querySelector('.card'), getConditions(description), 'card ');
 }
@@ -46,9 +44,9 @@ function drawCurrentWeather(data, city) {
 const changeWeatherClass = (subject, className, card = null) => subject.className = card + className;
 
 
-function drawNextDays(daily) {
+function drawNextDays(data) {
     let html = '';
-    daily.forEach(function (day, k) {
+    data.forEach(function (day, k) {
         const dateSum = currentDate.getDay() + k;
         const dayIndex = dateSum > 6 ? dateSum - 7 : dateSum;
         const conditions = getConditions(day.weather[0].description);
@@ -70,8 +68,21 @@ function drawNextDays(daily) {
     document.querySelector('.next-days').innerHTML = html;
 }
 
-function drawNextHours() {
+function drawNextHours(data) {
+    let html = '';
 
+    data.forEach(function (hour, key) {
+        const conditions = getConditions(hour.weather[0].description);
+        let date = currentDate;
+        date.setHours(currentDate.getHours() + 1);
+        html += `
+        <li class="${conditions} day-column">
+            <h4>${date.getHours()} h</h4>
+            <div class="temp-morn">${celcius(hour.temp)}°C</div>
+        </li>
+        `;
+    });
+    document.querySelector('.next-hours').innerHTML = html;
 }
 
 function drawPage(data, city) {
@@ -99,7 +110,7 @@ function getConditions(description) {
     }
 }
 
-function fetchIcon(icon) {
+function openWeatherMapIcon(icon) {
     return "http://openweathermap.org/img/w/" + icon + ".png";
 }
 
@@ -110,5 +121,11 @@ function celcius(temp) {
 Date.prototype.addDays = function (days) {
     const date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
+    return date;
+}
+
+Date.prototype.addHours = function (hours) {
+    const date = new Date(this.valueOf());
+    date.setDate(date.getDate() + hours);
     return date;
 }

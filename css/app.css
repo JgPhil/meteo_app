@@ -64,7 +64,7 @@ h3 {
 
 #actual-weather {
   width: auto;
-  max-width: 400px;
+  margin: auto;
   height: 300px;
   padding: 2em;
 }
@@ -78,11 +78,11 @@ h3 {
   font-size: 29px;
 }
 
-#temp {
+#actual-temp {
   font-size: 52px;
 }
 
-.next-days {
+.next-days, .next-hours {
   max-width: 1500px;
   width: 100%;
   padding: 0;
@@ -91,7 +91,7 @@ h3 {
 }
 
 .day-column {
-  flex: 1 0 100px;
+  flex: 1 0 120px;
   display: flex;
   flex-direction: column;
   margin-left: 1rem;
