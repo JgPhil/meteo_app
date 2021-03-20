@@ -9,4 +9,4 @@
 }
 ```
 
-+ Launch the PPHP built-in server and your are ready-to-go !
++ Launch your local web server and you're ready-to-go !
