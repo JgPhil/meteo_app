@@ -1,9 +1,13 @@
 const baseUrl = 'https://api.openweathermap.org/data/2.5/';
-const apiKey = '777f91b6cfc9562f9f83fc9851c0fa20';
-const main = document.getElementById('main');
-const days = [ 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', "Jeudi", 'Vendredi', 'Samedi'];
-let currentDate = new Date();
-
+const days = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', "Jeudi", 'Vendredi', 'Samedi'];
+const currentDate = new Date();
+let authorize = false;
+let apiKey;
+fetch("config.json")
+    .then(res => res.json())
+    .then(data => {
+        apiKey = data.apiKey;
+    });
 
 document.getElementById('form').addEventListener('submit', async function (event) {
     event.preventDefault();
@@ -11,16 +15,30 @@ document.getElementById('form').addEventListener('submit', async function (event
     oneCallAPI(city);
 })
 
-const displaySection = document.querySelector('.display-section');
-const actualWeather = displaySection.querySelector('.actual-weather');
+document.querySelector("#locate").addEventListener('click', async function (event) {
+    event.preventDefault();
+    if (!authorize) {
+        if (!confirm('Autoriser la geolocalisation ?')) {
+            return;
+        }
+        authorize = true;
+    }
+    const data = await getGeoData();
+    const city = data["geoplugin_city"];
+    return oneCallAPI(city);
+});
 
+async function getGeoData() {
+    const geoData = await fetch('http://www.geoplugin.net/json.gp');
+    const json = await geoData.json();
+    return json;
+}
 
 async function oneCallAPI(city) {
     const coords = await getCoords(city);
     const url = baseUrl + 'onecall?lat=' + coords[1] + '&lon=' + coords[0] + '&appid=' + apiKey + '&lang=fr'
     const result = getData(url);
     result.then(data => {
-        console.log(data)
         drawPage(data, city);
     })
 }
@@ -46,11 +64,12 @@ const changeWeatherClass = (subject, className, card = null) => subject.classNam
 
 function drawNextDays(data) {
     let html = '';
+    let newDate = currentDate;
     data.forEach(function (day, k) {
-        const dateSum = currentDate.getDay() + k;
+        const dateSum = newDate.getDay() + k;
         const dayIndex = dateSum > 6 ? dateSum - 7 : dateSum;
         const conditions = getConditions(day.weather[0].description);
-        const date = currentDate.addDays(k);
+        const date = newDate.addDays(k);
         const dateFormated = date.getDate() + '/' + (date.getMonth() + 1);
 
         html += `
@@ -58,9 +77,9 @@ function drawNextDays(data) {
             <h3>${days[dayIndex]}</h3>
             <h4 class="date">${dateFormated}</h4>
             <div>
-            <span class="temp-morn">${celcius(day.temp.morn)}°C</span>
+            <span class="temp-cards">${celcius(day.temp.morn)}°C</span>
             /
-            <span class="temp-day">${celcius(day.temp.day)}°C</span>
+            <span class="temp-cards">${celcius(day.temp.day)}°C</span>
             </div>
         </li>
         `;
@@ -70,17 +89,29 @@ function drawNextDays(data) {
 
 function drawNextHours(data) {
     let html = '';
-
-    data.forEach(function (hour, key) {
+    let date = new Date(currentDate.getTime());
+    let aujourdhui = true;
+    let demain = false;
+    data.forEach(function (hour) {
         const conditions = getConditions(hour.weather[0].description);
-        let date = currentDate;
-        date.setHours(currentDate.getHours() + 1);
+        date.setHours(date.getHours() + 1);
+
+        let dayLitterral = aujourdhui ? 'Aujourd\'hui' : (demain ? 'Demain' : days[date.getDay()]);
         html += `
         <li class="${conditions} day-column">
+            <h5>${dayLitterral}</h5>
             <h4>${date.getHours()} h</h4>
-            <div class="temp-morn">${celcius(hour.temp)}°C</div>
+            <div class="temp-cards">${celcius(hour.temp)}°C</div>
         </li>
         `;
+        if (date.getHours() == 23) {
+            if (!demain) {
+                demain = true;
+                aujourdhui = false;
+                return;
+            }
+            demain = false; // after last hour 
+        }
     });
     document.querySelector('.next-hours').innerHTML = html;
 }

@@ -97,11 +97,13 @@ h3 {
   margin-left: 1rem;
   padding: 0 5px;
   margin: 0 4px;
+  min-height: 16vh;
 }
 
-.temp-morn,
-.temp-day {
+
+.temp-cards {
   font-weight: 600;
+  font-size: 1.2em;
 }
 
 .card-header h3 {
