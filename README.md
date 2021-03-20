@@ -2,7 +2,7 @@
 ### Weather application with Ajax  &amp; OpenWeatherMap API
 
 ## Installation
-+ Just fill in the `apiKey` key in `config.json` file with your personnal OpenWeatherMap key.
++ Just create a `config.json` file with your personnal OpenWeatherMap key at the root.
 ```
 {
   "apiKey": "PUT_YOUR_PERSONNAL_APIKEY_HERE"
