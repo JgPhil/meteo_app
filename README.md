@@ -1,6 +1,12 @@
-# meteo_app
-Meteo application with Ajax  &amp; OpenWeatherMap
+# Weather application 
+### Weather application with Ajax  &amp; OpenWeatherMap API
 
 ## Installation
-- Just add a `config.php` file and add declare an 'API_KEY' with your personnal OpenWeatherMap key
-- Launch the PPHP built-in server and your are ready-to-go !
++ Just fill in the `apiKey` key in `config.json` file with your personnal OpenWeatherMap key.
+```
+{
+  "apiKey": "PUT_YOUR_PERSONNAL_APIKEY_HERE"
+}
+```
+
++ Launch the PPHP built-in server and your are ready-to-go !
